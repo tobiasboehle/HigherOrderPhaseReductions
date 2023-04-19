@@ -1,6 +1,10 @@
 function dph = rhs_K2d2_slow(ph, m, omega, alpha)
+% compute P^{2,2}, as defined in the paper.
+% if N is large this function is slower than "rhs_K2d2", but the result is the same.
+
 N = length(ph);
 
+%the following formulas are copied from mathematica. (see mathematica notebook in this github repository).
 fct0 =  1/(N*m);
 R01 = fct0*sum(-cos(ph'-ph+alpha)+cos(alpha), 2);
 

@@ -1,7 +1,12 @@
 function dph = rhs_K2d1(ph, m, omega, alpha)
+%compute P^{2,1}, as defined in the paper.
+% if N is large this function is faster than "rhs_K2d1_slow", but the result is the same.
+
 Z = mean(exp((1:3).*1i.*ph), 1);
 r = abs(Z);
 ang = angle(Z);
+
+%the following formulas are copied from mathematica. (see mathematica notebook in this github repository).
 
 %blue
 dph1 = (-2).*m.*cos(2.*alpha+(-1).*ph)+(-3).*m.*cos(ph)+3.*m.*cos(2.*ph+( ...

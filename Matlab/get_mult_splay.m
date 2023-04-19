@@ -1,4 +1,6 @@
-function f = get_floquet_splay(ode_rhs, ini, period, steps)
+function [f, com] = get_mult_splay(ode_rhs, ini, period, steps)
+%for explanation see function "get_mult_sync"
+
 dim = length(ini);
 epsilon = 1e-8;
 times = period * linspace(1/2/steps, 1-1/2/steps, steps);
@@ -19,11 +21,13 @@ for i = 1:steps
     end
     transition_matrix = expm(A*delta_t)*transition_matrix;
 end
-e = abs(eig(transition_matrix));
-[mi,ind]=min(abs(e-1));
+eigvals = eig(transition_matrix);
+[mi,ind]=min(abs(eigvals-1));
 if mi > 1e-4
     warning("no eigenvalue 1")
 end
-e(ind)=[];
-f = max(abs(e));
+eigvals(ind)=[];
+e = abs(eigvals);
+[f,i] = max(e);
+com = eigvals(i); %this is the critical multiplier
 end

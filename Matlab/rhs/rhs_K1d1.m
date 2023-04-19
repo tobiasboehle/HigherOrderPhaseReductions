@@ -1,5 +1,7 @@
 function dph = rhs_K1d1(ph, alpha)
-    
+
+%compute P^{1,1}, as defined in the paper.
+
 Z = mean(exp((1:2).*1i.*ph), 1);
 r = abs(Z);
 ang = angle(Z);

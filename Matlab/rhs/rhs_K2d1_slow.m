@@ -1,10 +1,12 @@
 function dph = rhs_K2d1_slow(ph, m, omega, alpha)
+% compute P^{2,1}, as defined in the paper.
+% if N is large this function is slower than "rhs_K2d1", but the result is the same.
+
 N = length(ph);
 
+%the following formulas are copied from mathematica. (see mathematica notebook in this github repository).
 fct0 =  1/(N*m);
 R01 = fct0*sum(-cos(ph'-ph+alpha)+cos(alpha), 2);
-
-c = 1;
 
 fct1 = 1/(2*N*(m^2+omega^2));
 
@@ -21,7 +23,7 @@ grad0H = 1/N*sin(ph-ph'+alpha);
 grad0H = grad0H - diag(diag(grad0H));
 grad0H = grad0H + diag(-sum(grad0H,1));
 
-grad1H = 1/N/c * (sin(ph)-sin(ph')).*sin(ph-ph'+alpha);
+grad1H = 1/N * (sin(ph)-sin(ph')).*sin(ph-ph'+alpha);
 grad1H = grad1H - diag(diag(grad1H));
 grad1H = grad1H + diag(-sum(grad1H,1));
 

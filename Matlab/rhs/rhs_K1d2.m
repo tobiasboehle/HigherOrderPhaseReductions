@@ -1,4 +1,8 @@
 function dph = rhs_K1d2(ph, alpha)
+
+%compute P^{1,2}, as defined in the paper.
+% if N is large this function is faster than "rhs_K1d2_slow", but the result is the same.
+
 Z = mean(exp((1:2).*1i.*ph), 1);
 r = abs(Z);
 ang = angle(Z);
